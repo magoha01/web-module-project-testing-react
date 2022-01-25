@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import Display from './../Display';
 import mockFetchShow from './../../api/fetchShow';
+jest.mock('./../../api/fetchShow');
 
 const testShow = {
     name: 'show name',
@@ -52,7 +53,7 @@ test('renders Show component when the button is clicked ', async ()=>{
 test('renders show season options matching your data when the button is clicked', async () => {
     mockFetchShow.mockResolvedValueOnce(testShow)
     render(<Display/>) 
-    const button = screen.getByRole(button);
+    const button = screen.getByText(/Press to Get Show Data/i);
     userEvent.click(button);
 
     await waitFor(()=> {
